@@ -1,0 +1,22 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV["DATABASE_HOSTNAME"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: ecommerce_test
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: library_management6
+  pool: 5
+  timeout: 5000
