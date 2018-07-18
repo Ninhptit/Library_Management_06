@@ -1,16 +1,17 @@
 class BorrowsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
   before_action :load_borrow, only: %i(edit update show)
-  before_action :authenticate_user!, only: %i(index show create)
+  before_action :user_logged_in, only: %i(new index show create)
 
   def index
     @borrows = current_user.borrows.check_approve(true)
+                           .approve_success
                            .order_by_time.page(params[:page])
                            .per Settings.borrow.per_page
   end
 
   def show
-    @book_borrows = @borrow.book_borrows.includes(:book)
+    @book_borrows = @borrow.book_borrows.has_borrowed.includes(:book)
   end
 
   def new

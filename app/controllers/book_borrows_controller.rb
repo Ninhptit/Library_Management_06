@@ -1,6 +1,7 @@
 class BookBorrowsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
   before_action :load_book_borrow, only: %i(destroy create)
+  before_action :user_logged_in, only: %i(create destroy add_book_borrow)
 
   def create
     borrow = current_user.borrows.check_approve(false).first
@@ -14,10 +15,11 @@ class BookBorrowsController < ApplicationController
 
   def destroy
     @id = params[:id]
-    borrow = @book_borrow.borrow
+    @borrow = @book_borrow.borrow
     @book_borrow.destroy
-    borrow.destroy if borrow.book_borrows.any?
+    @borrow.destroy unless borrow.book_borrows.any?
     respond_to do |format|
+      format.html
       format.js
     end
   end

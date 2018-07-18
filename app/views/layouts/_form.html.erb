@@ -30,9 +30,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><%= t ".close" %></button>
         <%= f.submit class: "btn btn-primary" %>
-        <% if current_user.borrows.check_approve(true).present? %>
-          <%= link_to t(".history_borrow"), borrows_path, class: "btn btn-primary", method: :get%>
-        <% end %>
       </div>
       <% end %>
     </div>

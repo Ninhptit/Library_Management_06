@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
   before_action :user_logged_in, :load_book, only: %i(create destroy)
   def create
     if current_user
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find_by id: params[:id] || not_found
+    @comment = Comment.find_by id: params[:id]
     @error = load_error_comment unless @comment.destroy
     load_comments
     respond_to do |format|
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 
   private
   def load_book
-    @book = Book.find_by(id: params[:book_id]) || not_found
+    @book = Book.find_by(id: params[:book_id]) 
   end
 
   def load_comments
