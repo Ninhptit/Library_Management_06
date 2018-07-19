@@ -24,5 +24,6 @@ Rails.application.routes.draw do
         post "reject/:id", to: "requirement#reject"
       end
     end 
+    resources :books
   end
 end

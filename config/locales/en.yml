@@ -168,8 +168,27 @@ en:
       next: "next"
       previous: "Previous"
       about: "About Us"
-      about_detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, 
-        quam vitae est Sed non eros elementum nulla sodales ullamcorper."
+      about_detail: "
+      Books
+      Literature
+      Liji2 no bg.png
+      Major forms
+      Novel Poem Drama Short story Novella
+      Genres
+      Comedy Drama Epic Erotic Nonsense Lyric Mythopoeia Romance Satire Tragedy Tragicomedy
+      Media
+      Performance play Book
+      Techniques
+      Prose Poetry
+      History and lists
+      History modern
+      Outline Glossary of terms
+      Books Writers Literary awards poetry
+      Discussion
+      Criticism Theory (critical theory) Sociology Magazines
+      Books-aj.svg aj ashton 01.svg Literature portal
+      vte
+      A book is a series of pages assembled for easy portability and reading, as well as the composition contained in it. The book's most common modern form is that of a codex volume consisting of rectangular paper pages bound on one side, with a heavier cover and spine, so that it can fan open for reading. Books have taken other forms, such as scrolls, leaves on a string, or strips tied together; and the pages have been of parchment, vellum, papyrus, bamboo slips, palm leaves, silk, wood, and other materials.[1"
       contact: "Contact Us"
       info: "Us info"
       address: " 3050 Universal Blvd #190 Fort Lauderdale, FL, 33331, Sydney New York City"
@@ -192,4 +211,9 @@ en:
     rejected:
       rejected_info: "Your requirement rejected"
       rejected_subject: "Library rejected"
+##################################################################
+##################################################################
+  shared:
+    error_messages:
+      error: "Error"
 ##################################################################
