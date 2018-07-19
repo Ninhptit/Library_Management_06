@@ -146,7 +146,6 @@ ActiveRecord::Schema.define(version: 20180718145721) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "name"
-    t.integer "role", default: 0
     t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

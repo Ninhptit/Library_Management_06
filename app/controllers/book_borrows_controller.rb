@@ -17,7 +17,7 @@ class BookBorrowsController < ApplicationController
     @id = params[:id]
     @borrow = @book_borrow.borrow
     @book_borrow.destroy
-    @borrow.destroy unless borrow.book_borrows.any?
+    @borrow.destroy unless @borrow.book_borrows.any?
     respond_to do |format|
       format.html
       format.js

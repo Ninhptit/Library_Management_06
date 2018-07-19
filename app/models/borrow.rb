@@ -11,8 +11,6 @@ class Borrow < ApplicationRecord
 
   accepts_nested_attributes_for :book_borrows
 
-  enum status: {pedding: 0, approve: 1, reject: 2}
-
   scope :check_approve, ->(boolean_approve){where(approve: boolean_approve)}
   scope :approve_success, ->{where(status: 1)}
   scope :approve, ->{where(approve: 1, status: 1)}
