@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = exception.message
-    render js: "window.location = '#{root_path}'"
+    respond_to do |format|
+      format.js  {render js: "window.location = '#{root_path}'"}
+      format.html {redirect_to root_url, :alert => exception.message} 
+    end
+   
   end
 
   protected
