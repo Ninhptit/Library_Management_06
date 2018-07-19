@@ -47,8 +47,7 @@ bower.json
 # Ignore node_modules
 node_modules/
 /config/application.yml
-/config/secrets.yml
-/config/database.yml
+
 
 config/settings.local.yml
 config/settings/*.local.yml
