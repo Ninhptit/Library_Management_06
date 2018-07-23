@@ -18,6 +18,9 @@ class User < ApplicationRecord
   acts_as_voter
   acts_as_follower
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   def load_avatar
     path = ActionController::Base.helpers
                                  .image_path(Settings.user.avatar_default)

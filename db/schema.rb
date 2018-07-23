@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180717042939) do
+ActiveRecord::Schema.define(version: 20180718145721) do
 
   create_table "author_books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "book_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20180717042939) do
     t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["book_id"], name: "index_book_borrows_on_book_id"
     t.index ["borrow_id"], name: "index_book_borrows_on_borrow_id"
   end
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20180717042939) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["user_id"], name: "index_borrows_on_user_id"
   end
 
@@ -118,7 +120,7 @@ ActiveRecord::Schema.define(version: 20180717042939) do
   end
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", default: "guest"
+    t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
     t.datetime "created_at", null: false
@@ -147,6 +149,8 @@ ActiveRecord::Schema.define(version: 20180717042939) do
     t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

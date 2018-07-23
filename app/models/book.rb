@@ -17,6 +17,9 @@ class Book < ApplicationRecord
   accepts_nested_attributes_for :author_books
   accepts_nested_attributes_for :category_books
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   scope :searchs, (lambda do |keyword|
     unless keyword.blank?
       ransack(

@@ -60,7 +60,7 @@ class BooksController < ApplicationController
 
   private
   def load_book
-    @book = Book.find_by(id: params[:id]) || not_found
+    @book = Book.friendly.find_by(id: params[:id]) || not_found
   end
 
   def load_book_index

@@ -4,6 +4,9 @@ class Category < ApplicationRecord
   scope :sort_category, ->{order name: :asc}
   scope :select_category, ->{select :id, :name}
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   def self.load_by_list_book books
     return if books && !books.empty?
     joins(:category_books)

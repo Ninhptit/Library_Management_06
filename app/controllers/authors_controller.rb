@@ -25,6 +25,6 @@ class AuthorsController < ApplicationController
 
   private
   def load_author
-    @author = Author.find_by id: params[:id] || not_found
+    @author = Author.friendly.find_by id: params[:id] || not_found
   end
 end
