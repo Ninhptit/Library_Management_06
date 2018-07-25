@@ -9,6 +9,7 @@ gem "acts_as_follower", github: "tcocca/acts_as_follower"
 gem "acts_as_votable", "~> 0.11.1"
 gem "bootstrap", "~> 4.1.1"
 gem "bootstrap4-kaminari-views"
+gem "cancancan", "~> 2.0"
 gem "carrierwave", "1.2.2"
 gem "coffee-rails", "~> 4.2"
 gem "config", "~> 1.7.0"
@@ -25,18 +26,20 @@ gem "mysql2"
 gem "puma", "~> 3.7"
 gem "rails", "~> 5.1.6"
 gem "ransack"
+gem "rolify"
 gem "rubocop", "~> 0.54.0", require: false
 gem "sass-rails", "~> 5.0"
 gem "social-share-button"
 gem "toastr-rails"
 gem "turbolinks", "~> 5"
 gem "uglifier", ">= 1.3.0"
-gem "rolify"
-gem "cancancan", "~> 2.0"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "capybara", "~> 2.13"
+  gem "factory_girl_rails"
+  gem "faker"
+  gem "rspec-rails", "~> 3.7"
   gem "selenium-webdriver"
 end
 
@@ -45,6 +48,12 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "web-console", ">= 3.3.0"
+end
+
+group :test do
+  gem "database_cleaner"
+  gem "shoulda-matchers", git: "https://github.com/thoughtbot/shoulda-matchers.git", branch: "rails-5"
+  gem "simplecov", require: false
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates :email, presence: true, uniqueness: {case_sensitive: false}
   after_create :assign_default_role
   rolify
 
@@ -18,16 +19,10 @@ class User < ApplicationRecord
   acts_as_voter
   acts_as_follower
 
-  def load_avatar
-    path = ActionController::Base.helpers
-                                 .image_path(Settings.user.avatar_default)
-    avatar.nil? ? path : avatar
-  end
-
   def can_borrow_book
     if borrows.present? && borrows.check_approve(true)
-      .present? && borrows.check_approve(true)
-      .last.book_borrows.unpaid.present?
+                                  .present? && borrows.check_approve(true)
+                                  .last.book_borrows.unpaid.present?
       false
     else
       true
@@ -44,6 +39,6 @@ class User < ApplicationRecord
 
   private
   def assign_default_role
-    self.add_role(:guest) if self.roles.blank?
+    add_role(:guest) if roles.blank?
   end
 end
