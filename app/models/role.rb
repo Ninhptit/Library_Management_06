@@ -4,7 +4,7 @@ class Role < ApplicationRecord
   belongs_to :resource, polymorphic: true, optional: true
 
   validates :name, presence: true, inclusion: %w(guest admin banned)
-  validates :resource_type, inclusion: { in: Rolify.resource_types },
+  validates :resource_type, inclusion: {in: Rolify.resource_types},
                             allow_nil: true
 
   scopify
