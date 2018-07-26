@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  let!(:user1) { FactoryBot.create(:user) }
+  let!(:category1) { FactoryBot.create(:category) }
+  let!(:publisher1) { FactoryBot.create(:publisher) }
+  let!(:book1) { FactoryBot.create(:book, publisher_id: publisher1.id) }
+  let!(:user1) { FactoryBot.create(:user) }
 
   describe "db schema" do
     context "columns" do
@@ -62,25 +67,34 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "associations" do
+    it { should have_many(:borrows) }
+    it { should have_many(:comments) }
+    it { should have_many(:rates) }
+    it { should have_many(:users_roles) }
+    it { should have_many(:comment_books).through(:comments).source(:book) }
+    it { should have_many(:rate_books).through(:rates).source(:book) }
+    it { should have_many(:roles).through(:users_roles) }
+  end
+
   describe "#borrow_not_approve" do
-    let!(:user1) { FactoryGirl.create(:user) }
     context "find borrow not approve" do
-      let!(:borrow) { FactoryGirl.create(:borrow, user_id: user1.id)}
+      let!(:borrow) { FactoryBot.create(:borrow, user_id: user1.id)}
       it do
         expect(user1.borrow_not_approve).to eq(true)
       end
     end
 
     context "not find borrow not approve when have 1 borrow" do
-      let!(:borrow1) { FactoryGirl.create(:borrow, user_id: user1.id, approve: true)}
+      let!(:borrow1) { FactoryBot.create(:borrow, user_id: user1.id, approve: true)}
       it do
         expect(user1.borrow_not_approve).to eq(false)
       end
     end
 
     context "not find borrow not approve when have 2 borrow" do
-      let!(:borrow) { FactoryGirl.create(:borrow, user_id: user1.id)}
-      let!(:borrow1) { FactoryGirl.create(:borrow, user_id: user1.id, approve: true)}
+      let!(:borrow) { FactoryBot.create(:borrow, user_id: user1.id)}
+      let!(:borrow1) { FactoryBot.create(:borrow, user_id: user1.id, approve: true)}
       it do
         expect(user1.borrow_not_approve).to eq(true)
       end
@@ -88,10 +102,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#can_borrow_book" do
-    let!(:user1) { FactoryGirl.create(:user) }
-    let!(:category1) { FactoryGirl.create(:category) }
-    let!(:publisher1) { FactoryGirl.create(:publisher) }
-    let!(:book1) { FactoryGirl.create(:book, publisher_id: publisher1.id) }
     context "Not borrow" do
       it do
         expect(user1.can_borrow_book).to eq true
@@ -99,18 +109,33 @@ RSpec.describe User, type: :model do
     end
 
     context "All books were paid" do
-      let!(:borrow) { FactoryGirl.create(:borrow, approve: true, user_id: user1.id) }
-      let!(:book_borrow) { FactoryGirl.create(:book_borrow, book_id: book1.id, borrow_id: borrow.id, return_date: Time.now+3.days) }
+      let!(:borrow) { FactoryBot.create(:borrow, approve: true, user_id: user1.id) }
+      let!(:book_borrow) { FactoryBot.create(:book_borrow, book_id: book1.id, borrow_id: borrow.id, return_date: Time.now+3.days) }
       it do
         expect(user1.can_borrow_book).to eq true
       end
     end
 
     context "have book unpaid" do
-      let!(:borrow) { FactoryGirl.create(:borrow, approve: true, user_id: user1.id) }
-      let!(:book_borrow1) { FactoryGirl.create(:book_borrow, book_id: book1.id, borrow_id: borrow.id) }
+      let!(:borrow) { FactoryBot.create(:borrow, approve: true, user_id: user1.id) }
+      let!(:book_borrow1) { FactoryBot.create(:book_borrow, book_id: book1.id, borrow_id: borrow.id) }
       it do
         expect(user1.can_borrow_book).to eq false
+      end
+    end
+  end
+
+  describe "#check_rating" do
+    context "user has not rated book1" do
+      it do
+        expect(user1.check_rating(book1.id)).to eq false
+      end
+    end
+
+    context "user rated book" do
+      let!(:rate1) { FactoryBot.create(:rate, user_id: user1.id, book_id: book1.id) }
+      it do
+        expect(user1.check_rating(book1.id)).to eq true
       end
     end
   end

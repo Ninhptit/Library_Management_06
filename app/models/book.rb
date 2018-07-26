@@ -2,6 +2,8 @@ class Book < ApplicationRecord
   acts_as_votable
   acts_as_followable
 
+  validates_presence_of :name, :total_pages, :quantity, :description, :image
+
   belongs_to :publisher
   has_many :author_books
   has_many :authors, through: :author_books
@@ -16,6 +18,8 @@ class Book < ApplicationRecord
 
   accepts_nested_attributes_for :author_books
   accepts_nested_attributes_for :category_books
+
+  mount_uploader :image, ImageUploader
 
   scope :searchs, (lambda do |keyword|
     unless keyword.blank?

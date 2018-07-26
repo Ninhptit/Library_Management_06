@@ -33,8 +33,11 @@ class User < ApplicationRecord
     borrows.check_approve(false).present?
   end
 
+  # def check_rating book_id
+  #   Rate.find_rating(id, book_id).any?
+  # end
   def check_rating book_id
-    Rate.find_rating(id, book_id).any?
+    rates.find_rating(book_id).any?
   end
 
   private
